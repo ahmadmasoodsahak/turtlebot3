@@ -162,4 +162,91 @@
     </inertial>
   </link>
 
+  <!-- Stereo Depth Camera Links and Joints-->
+  <!-- Left Camera -->
+  <link name="camera_left_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <joint name="camera_left_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_left_link"/>
+    <origin xyz="0.05 0.03 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <!-- Right Camera -->
+  <link name="camera_right_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <joint name="camera_right_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="camera_right_link"/>
+    <origin xyz="0.05 -0.03 0.1" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo reference="camera_left_link">
+    <sensor type="camera" name="left_camera">
+      <always_on>true</always_on>
+      <update_rate>30.0</update_rate>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>50</far>
+        </clip>
+      </camera>
+      <plugin name="left_camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <cameraName>left_camera</cameraName>
+        <frameName>camera_left_link</frameName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <robotNamespace>/stereo/left</robotNamespace>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <gazebo reference="camera_right_link">
+    <sensor type="camera" name="right_camera">
+      <always_on>true</always_on>
+      <update_rate>30.0</update_rate>
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>50</far>
+        </clip>
+      </camera>
+      <plugin name="right_camera_controller" filename="libgazebo_ros_camera.so">
+        <alwaysOn>true</alwaysOn>
+        <cameraName>right_camera</cameraName>
+        <frameName>camera_right_link</frameName>
+        <imageTopicName>image_raw</imageTopicName>
+        <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+        <robotNamespace>/stereo/right</robotNamespace>
+      </plugin>
+    </sensor>
+  </gazebo>
+
 </robot>

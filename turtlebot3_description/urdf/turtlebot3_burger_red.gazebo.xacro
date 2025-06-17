@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<robot name="turtlebot3_burger_sim" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <gazebo reference="base_link">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="wheel_left_link">
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="wheel_right_link">
+    <mu1>0.1</mu1>
+    <mu2>0.1</mu2>
+    <kp>500000.0</kp>
+    <kd>10.0</kd>
+    <minDepth>0.001</minDepth>
+    <maxVel>0.1</maxVel>
+    <fdir1>1 0 0</fdir1>
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo>
+  <plugin name="turtlebot3_burger_controller" filename="libgazebo_ros_diff_drive.so">
+    <commandTopic>cmd_vel</commandTopic>
+
+    <!-- BU 3 SATIR ODOM/TWIST yayını kapatır -->
+    <publishOdomTF>false</publishOdomTF>
+    <publishTf>false</publishTf>
+    <publishWheelJointState>false</publishWheelJointState>
+
+    <!-- Diğer ayarlar -->
+    <odometryTopic>disabled_odom</odometryTopic>
+    <odometryFrame>disabled_odom</odometryFrame>
+    <robotBaseFrame>base_footprint</robotBaseFrame>
+    <leftJoint>wheel_left_joint</leftJoint>
+    <rightJoint>wheel_right_joint</rightJoint>
+    <wheelSeparation>0.160</wheelSeparation>
+    <wheelDiameter>0.066</wheelDiameter>
+    <updateRate>30</updateRate>
+    <wheelAcceleration>1</wheelAcceleration>
+    <wheelTorque>10</wheelTorque>
+    <rosDebugLevel>na</rosDebugLevel>
+    <legacyMode>false</legacyMode>
+  </plugin>
+</gazebo>
+
+</robot>

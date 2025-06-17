@@ -1,0 +1,5 @@
+<launch>
+  <node pkg="turtlebot3_teleop" type="turtlebot3_teleop_key" name="redbot_teleop" output="screen">
+    <remap from="cmd_vel" to="/redbot/cmd_vel"/>
+  </node>
+</launch>
